@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: barber-go
+  datasource:
+    url: jdbc:postgresql://localhost:5432/barber_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: drop
+        
+server:
+  port: 8080
+
+jwt.private.key: classpath:my-private-key.key
+jwt.public.key: classpath:my-public-key.pem
