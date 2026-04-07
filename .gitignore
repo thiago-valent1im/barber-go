@@ -1,13 +1,9 @@
-# Compiled class files
+
 *.class
 
-# Log files
 *.log
 
-# Maven target directory
 /target/
-
-# Maven wrapper
 .mvn/wrapper/maven-wrapper.properties
 
 # IDEs
@@ -25,13 +21,10 @@
 # VS Code
 .vscode/
 
-
 # Temporary files
 *.tmp
 *.swp
 
 # Environment variables
 .env
-
-my-private-key.key
-my-public-key.pem
+resources
