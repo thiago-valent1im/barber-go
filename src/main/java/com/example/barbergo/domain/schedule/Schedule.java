@@ -1,4 +1,4 @@
-package com.example.barbergo.domain;
+package com.example.barbergo.domain.schedule;
 
 import java.util.List;
 import java.util.UUID;

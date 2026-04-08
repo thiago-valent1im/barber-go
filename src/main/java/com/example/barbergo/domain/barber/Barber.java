@@ -1,4 +1,4 @@
-package com.example.barbergo.domain;
+package com.example.barbergo.domain.barber;
 
 import java.util.UUID;
 
