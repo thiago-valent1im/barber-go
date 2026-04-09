@@ -1,4 +1,4 @@
-package com.example.barbergo.infrastructure.persistence.user;
+package com.example.barbergo.infrastructure.security;
 
 import java.util.UUID;
 
@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.barbergo.domain.user.UserRepository;
+import com.example.barbergo.infrastructure.persistence.user.UserEntity;
 
 @Service
 public class UserDetailsServiceI implements UserDetailsService {

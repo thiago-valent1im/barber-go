@@ -24,11 +24,6 @@ public class BarberJpaAdapter implements BarberRepository {
     }
 
     @Override
-    public void delete(Barber user) {
-        barberJpa.delete(BarberEntity.fromDomain(user));
-    }
-
-    @Override
     public Optional<Barber> findById(UUID id) {
         return barberJpa.findById(id).map(BarberEntity::toDomain);
     }
@@ -36,6 +31,11 @@ public class BarberJpaAdapter implements BarberRepository {
     @Override
     public List<Barber> findAll() {
         return barberJpa.findAll().stream().map(BarberEntity::toDomain).toList();
+    }
+
+    @Override
+    public void deleteById(UUID id) {
+        barberJpa.deleteById(id);
     }
     
 }

@@ -7,14 +7,14 @@ import lombok.Getter;
 @Getter
 public class User {
     
-    private UUID id;
+    private UUID userId;
     private String name;
     private String email;
     private String password;
     private String role;
 
-    public User(UUID id, String name, String email, String password, String role) {
-        this.id = id;
+    public User(UUID userId, String name, String email, String password, String role) {
+        this.userId = userId;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -22,7 +22,7 @@ public class User {
     }
 
     public void validate() {
-        if (id == null) {
+        if (userId == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
         if (name == null) {

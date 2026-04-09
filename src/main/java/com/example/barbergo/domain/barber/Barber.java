@@ -8,12 +8,13 @@ import lombok.Getter;
 
 @Getter
 public class Barber extends User {
-    private UUID id;
+    private UUID barberId;
     private Double commission;
     private Double rating;
 
-    public Barber(UUID id, String name, String email, String password, Double commission, Double rating) {
-        super(id, name, email, password, "BARBER");
+    public Barber(UUID barberId, UUID userId, String name, String email, String password, Double commission, Double rating) {
+        super(userId, name, email, password, "BARBER");
+        this.barberId = barberId;
         this.commission = commission;
         this.rating = rating;
     }

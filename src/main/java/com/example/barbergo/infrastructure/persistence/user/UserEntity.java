@@ -26,7 +26,8 @@ import lombok.NoArgsConstructor;
 public class UserEntity implements UserDetails {
     
     @Id
-    private UUID id;
+    @Column(name = "user_id")
+    private UUID userId;
     private String name;
     @Column(unique = true)
     private String email;
@@ -34,11 +35,11 @@ public class UserEntity implements UserDetails {
     private String role;
 
     public User toDomain() {
-        return new User(id, name, email, password, role);
+        return new User(userId, name, email, password, role);
     }
 
     public static UserEntity fromDomain(User user) {
-        return new UserEntity(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.getRole());
+        return new UserEntity(user.getUserId(), user.getName(), user.getEmail(), user.getPassword(), user.getRole());
     }
 
     @Override
@@ -48,6 +49,6 @@ public class UserEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return id.toString();
+        return userId.toString();
     }
 }

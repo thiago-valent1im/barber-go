@@ -1,6 +1,6 @@
 package com.example.barbergo.application.user;
 
-import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -9,15 +9,16 @@ import com.example.barbergo.domain.user.UserRepository;
 
 
 @Service
-public class GetUsersUseCase {
+public class GetUserByIdUseCase {
     
     private final UserRepository userRepository;
     
-    public GetUsersUseCase(UserRepository userRepository) {
+    public GetUserByIdUseCase(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public List<User> execute() {
-        return userRepository.findAll();
+    public User execute(UUID userId) {
+        return userRepository.findById(userId)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
 }

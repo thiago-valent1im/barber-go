@@ -5,6 +5,8 @@ import java.util.UUID;
 import com.example.barbergo.domain.barber.Barber;
 import com.example.barbergo.infrastructure.persistence.user.UserEntity;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
@@ -21,17 +23,18 @@ import lombok.NoArgsConstructor;
 public class BarberEntity {
     
     @Id
-    private UUID id;
-    @OneToOne
+    @Column(name = "barber_id")
+    private UUID barberId;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private UserEntity user;
     private Double commission;
     private Double rating;
 
     public Barber toDomain() {
-        return new Barber(id, user.getName(), user.getEmail(), user.getPassword(), commission, rating);
+        return new Barber(barberId, user.getUserId(), user.getName(), user.getEmail(), user.getPassword(), commission, rating);
     }
 
     public static BarberEntity fromDomain(Barber barber) {
-        return new BarberEntity(barber.getId(), UserEntity.fromDomain(barber), barber.getCommission(), barber.getRating());
+        return new BarberEntity(barber.getBarberId(), UserEntity.fromDomain(barber), barber.getCommission(), barber.getRating());
     }
 }

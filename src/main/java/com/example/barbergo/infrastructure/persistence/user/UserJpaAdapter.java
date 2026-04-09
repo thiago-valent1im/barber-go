@@ -13,7 +13,7 @@ import com.example.barbergo.domain.user.UserRepository;
 public class UserJpaAdapter implements UserRepository{
 
     private final UserJpa userJpa;
-    
+
     public UserJpaAdapter(UserJpa userJpa) {
         this.userJpa = userJpa;
     }
@@ -25,8 +25,8 @@ public class UserJpaAdapter implements UserRepository{
     }
 
     @Override
-    public void delete(User user) {
-        userJpa.delete(UserEntity.fromDomain(user));
+    public void deleteById(UUID id) {
+        userJpa.deleteById(id);
     }
 
     @Override

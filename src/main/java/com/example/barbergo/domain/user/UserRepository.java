@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository {
     User save(User user);
-    void delete(User user);
+    void deleteById(UUID id);
     Optional<User> findById(UUID id);
     Optional<User> findByEmail(String email);
     List<User> findAll();
