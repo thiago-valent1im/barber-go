@@ -54,7 +54,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests((authorize) -> authorize
 						.requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
 						.requestMatchers(HttpMethod.POST, "/users/**").permitAll()
-						.requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "/barber/**").hasRole("ADMIN")
 						.anyRequest().authenticated()
 				)
 				.oauth2ResourceServer((jwt) -> jwt.jwt(Customizer.withDefaults()))

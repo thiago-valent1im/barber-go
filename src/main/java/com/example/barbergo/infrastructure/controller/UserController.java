@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.barbergo.application.user.CreateUserUseCase;
-import com.example.barbergo.application.user.DeleteUserUseCase;
 import com.example.barbergo.application.user.GetUsersUseCase;
 import com.example.barbergo.application.user.dtos.CreateUserRequest;
 import com.example.barbergo.domain.user.User;
@@ -26,12 +25,10 @@ public class UserController {
     
     private final CreateUserUseCase createUserUseCase;
     private final GetUsersUseCase getUsersUseCase;
-    private final DeleteUserUseCase deleteUserUseCase;
 
-    public UserController(CreateUserUseCase createUserUseCase, GetUsersUseCase getUsersUseCase, DeleteUserUseCase deleteUserUseCase) {
+    public UserController(CreateUserUseCase createUserUseCase, GetUsersUseCase getUsersUseCase) {
         this.createUserUseCase = createUserUseCase;
         this.getUsersUseCase = getUsersUseCase;
-        this.deleteUserUseCase = deleteUserUseCase;
     }
 
     @PostMapping
@@ -46,16 +43,6 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<User>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(getUsersUseCase.execute());
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        try {
-            deleteUserUseCase.execute(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
     }
 }
 
