@@ -1,15 +1,18 @@
-package com.example.barbergo.domain.service;
+package com.example.barbergo.domain.haircut;
 
 import java.util.UUID;
 
-public class Service {
+import lombok.Getter;
+
+@Getter
+public class Haircut {
     private UUID id;
     private String name;
     private String description;
-    private String duration;
+    private Integer duration;
     private Double price;
 
-    public Service(UUID id, String name, String description, String duration, Double price) {
+    public Haircut(UUID id, String name, String description, Integer duration, Double price) {
         this.id = id;
         this.name = name;
         this.description = description;
