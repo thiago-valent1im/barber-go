@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HaircutRepository {
     Haircut save(Haircut haircut);
-    void delete(Haircut haircut);
+    void deleteById(UUID id);
     Optional<Haircut> findById(UUID id);
     List<Haircut> findAll();
 }

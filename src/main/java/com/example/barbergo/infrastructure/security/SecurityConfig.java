@@ -52,10 +52,22 @@ public class SecurityConfig {
 				.csrf((csrf) -> csrf.disable())
 				.cors((cors) -> cors.configurationSource(corsConfigurationSource()))
 				.authorizeHttpRequests((authorize) -> authorize
+						// Security
 						.requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+
+						// Users
 						.requestMatchers(HttpMethod.POST, "/users/**").permitAll()
+
+						// Barbers
 						.requestMatchers(HttpMethod.GET, "/barbers/**").authenticated()
+
+						// Haircuts
+						.requestMatchers(HttpMethod.GET, "/haircuts/**").authenticated()
+
+						// ADMIN endpointsd()
 						.requestMatchers("/barber/**").hasRole("ADMIN")
+						.requestMatchers("/haircut/**").hasRole("ADMIN")
+
 						.anyRequest().authenticated()
 				)
 				.oauth2ResourceServer((jwt) -> jwt.jwt(Customizer.withDefaults()))
