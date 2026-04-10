@@ -37,7 +37,7 @@ public class HaircutController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Haircut>> getHaircuts() {
+    public ResponseEntity<List<Haircut>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(getHaircutsUseCase.execute());
     }
 }
