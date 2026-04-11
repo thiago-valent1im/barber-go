@@ -30,7 +30,11 @@ public class BarberController {
     private final GetBarberByIdUseCase getBarberByIdUseCase;
     private final CreateBarberUseCase createBarberUseCase;
 
-    public BarberController(GetBarbersUseCase getBarbersUseCase, GetBarberByIdUseCase getBarberByIdUseCase, CreateBarberUseCase createBarberUseCase, DeleteBarberUseCase deleteBarberUseCase) {
+    public BarberController(
+            GetBarbersUseCase getBarbersUseCase, 
+            GetBarberByIdUseCase getBarberByIdUseCase, 
+            CreateBarberUseCase createBarberUseCase,
+            DeleteBarberUseCase deleteBarberUseCase) {
         this.getBarbersUseCase = getBarbersUseCase;
         this.getBarberByIdUseCase = getBarberByIdUseCase;
         this.createBarberUseCase = createBarberUseCase;
@@ -39,7 +43,11 @@ public class BarberController {
 
     @GetMapping
     public ResponseEntity<List<Barber>> getAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(getBarbersUseCase.execute());
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(getBarbersUseCase.execute());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/{id}")
@@ -48,6 +56,8 @@ public class BarberController {
             return ResponseEntity.status(HttpStatus.OK).body(getBarberByIdUseCase.execute(id));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -57,6 +67,8 @@ public class BarberController {
             return ResponseEntity.status(HttpStatus.CREATED).body(createBarberUseCase.execute(request));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -67,6 +79,8 @@ public class BarberController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

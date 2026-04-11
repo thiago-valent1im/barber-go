@@ -25,8 +25,8 @@ public class HaircutJpaAdapter implements HaircutRepository{
     }
 
     @Override
-    public void delete(Haircut haircut) {
-        haircutJpa.delete(HaircutEntity.fromDomain(haircut));
+    public void deleteById(UUID id) {
+        haircutJpa.deleteById(id);
     }
 
     @Override

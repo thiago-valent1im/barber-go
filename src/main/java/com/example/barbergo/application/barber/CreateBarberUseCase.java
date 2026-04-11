@@ -22,7 +22,7 @@ public class CreateBarberUseCase {
     }
 
     public Barber execute(CreateBarberRequest request) {
-        Barber barber = new Barber(UUID.randomUUID(), UUID.randomUUID(), request.name(), request.email(), passwordEncoder.encode(request.password()), 0.0, 0.0);
+        Barber barber = new Barber(UUID.randomUUID(), request.name(), request.email(), passwordEncoder.encode(request.password()), 0.0, 0.0, 0);
         return barberRepository.save(barber);
     }
 }

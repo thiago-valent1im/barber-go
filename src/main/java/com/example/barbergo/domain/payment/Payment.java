@@ -2,6 +2,9 @@ package com.example.barbergo.domain.payment;
 
 import java.util.UUID;
 
+import lombok.Getter;
+
+@Getter
 public class Payment {
     private UUID id;
     private UUID scheduleId;

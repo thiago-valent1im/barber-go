@@ -2,9 +2,13 @@ package com.example.barbergo.domain.schedule;
 
 import java.util.List;
 import java.util.UUID;
+
+import lombok.Getter;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Getter
 public class Schedule {
     private UUID id;
     private UUID clientId;

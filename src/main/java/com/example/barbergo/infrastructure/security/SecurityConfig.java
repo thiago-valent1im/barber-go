@@ -52,10 +52,30 @@ public class SecurityConfig {
 				.csrf((csrf) -> csrf.disable())
 				.cors((cors) -> cors.configurationSource(corsConfigurationSource()))
 				.authorizeHttpRequests((authorize) -> authorize
+						// Security
 						.requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+
+						// Users
+						.requestMatchers(HttpMethod.POST, "/users/*/promote-to-barber").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.GET, "/users/me/reviews").authenticated()
+						.requestMatchers(HttpMethod.GET, "/users/*/reviews").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.POST, "/users/**").permitAll()
+
+						// Barbers
+						.requestMatchers(HttpMethod.GET, "/barbers/me/reviews").authenticated()
+						.requestMatchers(HttpMethod.GET, "/barbers/*/reviews").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/barbers/**").authenticated()
+
+						// Reviews
+						.requestMatchers(HttpMethod.POST, "/reviews").authenticated()
+
+						// Haircuts
+						.requestMatchers(HttpMethod.GET, "/haircuts/**").authenticated()
+					
+						// ADMIN endpoints
 						.requestMatchers("/barber/**").hasRole("ADMIN")
+						.requestMatchers("/haircut/**").hasRole("ADMIN")
+
 						.anyRequest().authenticated()
 				)
 				.oauth2ResourceServer((jwt) -> jwt.jwt(Customizer.withDefaults()))

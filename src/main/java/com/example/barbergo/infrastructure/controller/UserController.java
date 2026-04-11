@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.barbergo.application.barber.PromoteUserUseCase;
 import com.example.barbergo.application.user.CreateUserUseCase;
 import com.example.barbergo.application.user.GetUserByIdUseCase;
 import com.example.barbergo.application.user.dtos.CreateUserRequest;
+import com.example.barbergo.domain.barber.Barber;
 import com.example.barbergo.domain.user.User;
 
 
@@ -23,10 +25,15 @@ public class UserController {
     
     private final GetUserByIdUseCase getUserByIdUseCase;
     private final CreateUserUseCase createUserUseCase;
+    private final PromoteUserUseCase promoteUserUseCase;
 
-    public UserController(GetUserByIdUseCase getUserByIdUseCase, CreateUserUseCase createUserUseCase) {
+    public UserController(
+            GetUserByIdUseCase getUserByIdUseCase, 
+            CreateUserUseCase createUserUseCase, 
+            PromoteUserUseCase promoteUserUseCase) {
         this.getUserByIdUseCase = getUserByIdUseCase;
         this.createUserUseCase = createUserUseCase;
+        this.promoteUserUseCase = promoteUserUseCase;
     }
 
     @GetMapping("/{id}")
@@ -35,6 +42,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(getUserByIdUseCase.execute(id));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -44,7 +53,21 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CREATED).body(createUserUseCase.execute(request));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @PostMapping("/{id}/promote-to-barber")
+    public ResponseEntity<Barber> update(@PathVariable UUID id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(promoteUserUseCase.execute(id));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }
 

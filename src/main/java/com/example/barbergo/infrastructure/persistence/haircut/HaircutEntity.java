@@ -1,7 +1,5 @@
 package com.example.barbergo.infrastructure.persistence.haircut;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 import com.example.barbergo.domain.haircut.Haircut;
@@ -10,12 +8,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_haircuts")
 public class HaircutEntity {

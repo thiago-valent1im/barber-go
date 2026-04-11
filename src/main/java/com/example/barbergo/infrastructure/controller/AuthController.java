@@ -29,7 +29,9 @@ public class AuthController {
     private final JwtEncoder jwtEncoder;
     private final AuthenticationManager authenticationManager;
 
-    public AuthController(JwtEncoder jwtEncoder, AuthenticationManager authenticationManager) {
+    public AuthController(
+            JwtEncoder jwtEncoder, 
+            AuthenticationManager authenticationManager) {
         this.jwtEncoder = jwtEncoder;
         this.authenticationManager = authenticationManager;
     }

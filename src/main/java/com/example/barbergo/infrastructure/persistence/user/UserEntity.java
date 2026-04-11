@@ -15,19 +15,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_users")
 public class UserEntity implements UserDetails {
     
     @Id
-    @Column(name = "user_id")
-    private UUID userId;
+    private UUID id;
     private String name;
     @Column(unique = true)
     private String email;
@@ -35,11 +36,11 @@ public class UserEntity implements UserDetails {
     private String role;
 
     public User toDomain() {
-        return new User(userId, name, email, password, role);
+        return new User(id, name, email, password, role);
     }
 
     public static UserEntity fromDomain(User user) {
-        return new UserEntity(user.getUserId(), user.getName(), user.getEmail(), user.getPassword(), user.getRole());
+        return new UserEntity(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.getRole());
     }
 
     @Override
@@ -49,6 +50,6 @@ public class UserEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userId.toString();
+        return id.toString();
     }
 }

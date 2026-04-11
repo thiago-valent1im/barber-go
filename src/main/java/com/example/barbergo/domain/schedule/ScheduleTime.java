@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
+import lombok.Getter;
+
+@Getter
 public class ScheduleTime {
     private UUID id;
     private UUID barberId;
