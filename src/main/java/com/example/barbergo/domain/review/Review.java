@@ -15,6 +15,26 @@ public class Review {
     private String comment;
 
     public Review(UUID id, UUID userId, Barber barber, double rating, String comment) {
+        this.id = id;
+        this.userId = userId;
+        this.barber = barber;
+        this.rating = rating;
+        this.comment = comment;
+    }
+
+    public Review update(double rating, String comment) {
+        if (rating < 1 || rating > 5) {
+            throw new IllegalArgumentException("Rating must be between 1 and 5");
+        }
+
+        this.barber.updateReview(this.rating, rating);
+        this.rating = rating;
+        this.comment = comment;
+
+        return this;
+    }
+
+    public static Review create(UUID id, UUID userId, Barber barber, double rating, String comment) {
         
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
@@ -31,11 +51,9 @@ public class Review {
         if (rating < 1 || rating > 5) {
             throw new IllegalArgumentException("Rating must be between 1 and 5");
         }
-
-        this.id = id;
-        this.userId = userId;
-        this.barber = barber;
-        this.rating = rating;
-        this.comment = comment;
+       
+        Review review = new Review(id, userId, barber, rating, comment);
+        barber.addReview(rating);
+        return review;
     }
 }   

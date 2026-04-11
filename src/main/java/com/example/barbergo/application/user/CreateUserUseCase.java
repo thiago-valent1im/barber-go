@@ -22,7 +22,7 @@ public class CreateUserUseCase {
     }
 
     public User execute(CreateUserRequest request) {
-        User user = new User(
+        User user = User.create(
             UUID.randomUUID(), request.name(), request.email(), passwordEncoder.encode(request.password()), request.role()
         );
         return userRepository.save(user);

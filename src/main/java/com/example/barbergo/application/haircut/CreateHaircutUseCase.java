@@ -18,7 +18,7 @@ public class CreateHaircutUseCase {
     }
 
     public Haircut execute(CreateHaircutRequest request){
-        Haircut haircut = new Haircut(
+        Haircut haircut = Haircut.create(
             UUID.randomUUID(), request.name(), request.description(), request.duration(), request.price()
         );
         return haircutRepository.save(haircut);

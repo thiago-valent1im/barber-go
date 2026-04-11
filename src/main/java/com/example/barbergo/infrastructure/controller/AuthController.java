@@ -40,7 +40,7 @@ public class AuthController {
     public ResponseEntity<TokenOutput> login(@RequestBody LoginInput input) {
         try {
             Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(input.username(), input.password())
+                new UsernamePasswordAuthenticationToken(input.email(), input.password())
             );
 
             Instant now = Instant.now();

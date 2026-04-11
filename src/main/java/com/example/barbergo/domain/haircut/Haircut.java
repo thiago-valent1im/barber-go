@@ -13,7 +13,15 @@ public class Haircut {
     private Double price;
 
     public Haircut(UUID id, String name, String description, Integer duration, Double price) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.duration = duration;
+        this.price = price;
+    }
 
+    public static Haircut create(UUID id, String name, String description, Integer duration, Double price) {
+        
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
@@ -33,11 +41,8 @@ public class Haircut {
         if (price == null || price < 0) {
             throw new IllegalArgumentException("Price cannot be null or less than 0");
         }
-
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.duration = duration;
-        this.price = price;
+        
+        Haircut haircut = new Haircut(id, name, description, duration, price);
+        return haircut;
     }
 }

@@ -2,7 +2,6 @@ package com.example.barbergo.domain.barber;
 
 import java.util.UUID;
 
-import com.example.barbergo.domain.review.Review;
 import com.example.barbergo.domain.user.User;
 
 import lombok.Getter;
@@ -15,7 +14,13 @@ public class Barber extends User {
 
     public Barber(UUID id, String name, String email, String password, Double commission, Double rating, int reviewsCount) {
         super(id, name, email, password, "BARBER");
+        this.commission = commission;
+        this.rating = rating;
+        this.reviewsCount = reviewsCount;
+    }
 
+    public static Barber create(UUID id, String name, String email, String password, Double commission, Double rating, int reviewsCount) {
+        
         if (commission < 0 || commission > 1) {
             throw new IllegalArgumentException("Commission must be between 0 and 1");
         }
@@ -27,18 +32,17 @@ public class Barber extends User {
         if (reviewsCount < 0) {
             throw new IllegalArgumentException("Reviews count must be greater than 0");
         }
-
-        this.commission = commission;
-        this.rating = rating;
-        this.reviewsCount = reviewsCount;
+        
+        Barber barber = new Barber(id, name, email, password, commission, rating, reviewsCount);
+        return barber;
     }
 
-    public void addReview(Review review) {
+    public void addReview(double rating) {
         reviewsCount++;
-        rating = (rating * (reviewsCount - 1) + review.getRating()) / reviewsCount;
+        this.rating = (this.rating * (reviewsCount - 1) + rating) / reviewsCount;
     }
 
-    public void updateReview(Review oldReview, Review newReview) {
-        rating = (rating * reviewsCount + newReview.getRating() - oldReview.getRating()) / reviewsCount;
+    public void updateReview(double oldRating, double newRating) {
+        this.rating = (this.rating * reviewsCount + newRating - oldRating) / reviewsCount;
     }
 }

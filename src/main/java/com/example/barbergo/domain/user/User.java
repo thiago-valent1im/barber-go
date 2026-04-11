@@ -14,7 +14,15 @@ public class User {
     private String role;
 
     public User(UUID id, String name, String email, String password, String role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 
+    public static User create(UUID id, String name, String email, String password, String role) {
+        
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
@@ -31,10 +39,7 @@ public class User {
             throw new IllegalArgumentException("Password cannot be null or blank");
         }
 
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+        User user = new User(id, name, email, password, role);
+        return user;
     }
 }

@@ -20,9 +20,9 @@ public class UserDetailsServiceI implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        return userRepository.findById(UUID.fromString(id)).map(UserEntity::fromDomain)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + id));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmail(email).map(UserEntity::fromDomain)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
     
 }
