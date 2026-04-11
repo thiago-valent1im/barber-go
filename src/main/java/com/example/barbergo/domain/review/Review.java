@@ -38,4 +38,16 @@ public class Review {
         this.rating = rating;
         this.comment = comment;
     }
+
+    public Review update(double rating, String comment) {
+        if (rating < 1 || rating > 5) {
+            throw new IllegalArgumentException("Rating must be between 1 and 5");
+        }
+
+        this.barber.updateReview(this.rating, rating);
+        this.rating = rating;
+        this.comment = comment;
+
+        return this;
+    }
 }   

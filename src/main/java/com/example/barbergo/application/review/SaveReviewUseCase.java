@@ -1,7 +1,5 @@
 package com.example.barbergo.application.review;
 
-import java.lang.classfile.ClassFile.Option;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -28,24 +26,18 @@ public class SaveReviewUseCase {
                 .findById(request.barberId())
                 .orElseThrow(() -> new IllegalArgumentException("Barber not found"));
 
-        Optional<Review> optionalReview = reviewRepository.findByUserIdAndBarberId(
-                request.userId(), request.barberId());
-        
-        UUID id = optionalReview.map(Review::getId).orElseGet(UUID::randomUUID);
-        
-        Review review = new Review(
-                id, 
-                request.userId(), 
-                barber, 
-                request.rating(), 
-                request.comment());
+        return reviewRepository
+                .findByUserIdAndBarberId(request.userId(), request.barberId())
+                .map(r -> r.update(request.rating(), request.comment()))
+                .orElse(
+                    new Review(
+                        UUID.randomUUID(),
+                        request.userId(),
+                        barber,
+                        request.rating(),
+                        request.comment()
+                    )
+                );
 
-        if (optionalReview.isPresent()) {
-            barber.updateReview(optionalReview.get(), review);
-        } else {
-            barber.addReview(review);
-        }
-
-        return reviewRepository.save(review);
     }
 }

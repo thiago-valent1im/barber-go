@@ -2,7 +2,6 @@ package com.example.barbergo.domain.barber;
 
 import java.util.UUID;
 
-import com.example.barbergo.domain.review.Review;
 import com.example.barbergo.domain.user.User;
 
 import lombok.Getter;
@@ -33,12 +32,12 @@ public class Barber extends User {
         this.reviewsCount = reviewsCount;
     }
 
-    public void addReview(Review review) {
+    public void addReview(double rating) {
         reviewsCount++;
-        rating = (rating * (reviewsCount - 1) + review.getRating()) / reviewsCount;
+        this.rating = (this.rating * (reviewsCount - 1) + rating) / reviewsCount;
     }
 
-    public void updateReview(Review oldReview, Review newReview) {
-        rating = (rating * reviewsCount + newReview.getRating() - oldReview.getRating()) / reviewsCount;
+    public void updateReview(double oldRating, double newRating) {
+        this.rating = (this.rating * reviewsCount + newRating - oldRating) / reviewsCount;
     }
 }
