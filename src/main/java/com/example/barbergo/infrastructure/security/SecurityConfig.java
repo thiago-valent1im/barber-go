@@ -56,25 +56,28 @@ public class SecurityConfig {
 						.requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
 
 						// Users
+						.requestMatchers(HttpMethod.GET, "/users/me/**").authenticated()
+						.requestMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.POST, "/users/*/promote-to-barber").hasRole("ADMIN")
-						.requestMatchers(HttpMethod.GET, "/users/me/reviews").authenticated()
-						.requestMatchers(HttpMethod.GET, "/users/*/reviews").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.POST, "/users/**").permitAll()
 
 						// Barbers
-						.requestMatchers(HttpMethod.GET, "/barbers/me/reviews").authenticated()
-						.requestMatchers(HttpMethod.GET, "/barbers/*/reviews").hasRole("ADMIN")
-						.requestMatchers(HttpMethod.GET, "/barbers/**").authenticated()
+						.requestMatchers(HttpMethod.GET, "/barbers/me/**").hasAnyRole("BARBER", "ADMIN")
+						.requestMatchers(HttpMethod.GET, "/barbers").authenticated()
+						.requestMatchers(HttpMethod.GET, "/barbers/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "/barbers/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE, "/barbers/**").hasRole("ADMIN")
 
 						// Reviews
 						.requestMatchers(HttpMethod.POST, "/reviews").authenticated()
 
 						// Haircuts
 						.requestMatchers(HttpMethod.GET, "/haircuts/**").authenticated()
-					
-						// ADMIN endpoints
-						.requestMatchers("/barber/**").hasRole("ADMIN")
-						.requestMatchers("/haircut/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "/haircuts/**").hasRole("ADMIN")
+
+						.requestMatchers(HttpMethod.POST, "/appointments").authenticated()
+						.requestMatchers(HttpMethod.PUT, "/appointments").authenticated()
+						.requestMatchers(HttpMethod.DELETE, "/appointments/**").hasRole("ADMIN")
 
 						.anyRequest().authenticated()
 				)

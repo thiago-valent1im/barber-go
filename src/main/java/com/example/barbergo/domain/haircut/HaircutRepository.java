@@ -11,5 +11,6 @@ public interface HaircutRepository {
     Haircut save(Haircut haircut);
     void deleteById(UUID id);
     Optional<Haircut> findById(UUID id);
+    List<Haircut> findAllById(List<UUID> ids);
     List<Haircut> findAll();
 }

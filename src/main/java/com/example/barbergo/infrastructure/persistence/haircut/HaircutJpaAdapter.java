@@ -38,4 +38,9 @@ public class HaircutJpaAdapter implements HaircutRepository{
     public List<Haircut> findAll() {
         return haircutJpa.findAll().stream().map(HaircutEntity::toDomain).toList();
     }
+
+    @Override
+    public List<Haircut> findAllById(List<UUID> ids) {
+        return haircutJpa.findAllById(ids).stream().map(HaircutEntity::toDomain).toList();
+    }
 }
