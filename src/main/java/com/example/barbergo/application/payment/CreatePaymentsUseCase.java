@@ -16,7 +16,7 @@ public class CreatePaymentsUseCase {
     }
 
     public Payment execute(CreatePaymentRequest request) {
-        Payment payment = Payment.create(request.scheduleId(), request.type(), request.amount());
+        Payment payment = Payment.create(request.method());
         return paymentRepository.save(payment);
     }
 }

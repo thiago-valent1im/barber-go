@@ -9,25 +9,15 @@ import lombok.Getter;
 @Getter
 public class Payment {
     private UUID id;
-    private UUID scheduleId;
     private PaymentStatus status;
-    private PaymentType type;
-    private Double amount;
+    private PaymentMethod method;
 
-    public static Payment create(UUID scheduleId, PaymentType type, Double amount) {
-        if (scheduleId == null) {
-            throw new IllegalArgumentException("Schedule ID cannot be null.");
-        }
-        
-        if (type == null) {
-            throw new IllegalArgumentException("Payment type cannot be null.");
-        }
-    
+    public static Payment create(PaymentMethod method) {
 
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Amount must be greater than zero.");
+        if (method == null) {
+            throw new IllegalArgumentException("Payment method cannot be null.");
         }
 
-        return new Payment(UUID.randomUUID(), scheduleId, PaymentStatus.PENDING, type, amount);
+        return new Payment(UUID.randomUUID(), PaymentStatus.PENDING, method);
     }
 }
